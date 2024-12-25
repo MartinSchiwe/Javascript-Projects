@@ -7,6 +7,496 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="portfolio.css">
     <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --grey:#5a5a5a
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    gap: 20px;
+    overflow-x: hidden;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0px 10px;
+    justify-content: center;
+}
+label {
+    font-size: 2.7rem;
+    font-weight: 700;
+}
+
+p {
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+h1 {
+    font-size: 1rem;
+    font-weight: 300;
+}
+.hidden{
+    opacity: 0;
+    transform: translateY(-5%);
+}
+
+.show{
+    opacity: 1;
+    transform: translateY(0);
+    transition: 1.3s ease;
+}
+.hidden .nav img {
+    width: 45px;
+    height: 45px;
+    margin-left: 30px;
+}
+
+.hidden .nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+}
+
+.hidden .nav ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin-right: 20px;
+}
+
+.hidden .nav ul a {
+    position: relative;
+    text-decoration: none;
+    color: var(--black);
+    padding: 5px 0px;
+    margin:0px 20px;
+}
+
+#menuButton{
+    display: none;
+}
+
+.hidden .nav ul a:after{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    content: '';
+    background-color: #000000;
+    transition: 0.5s ease;
+}
+
+.hidden .nav ul a:hover::after{
+    width: 100%;
+}
+
+.home-lower-container{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    width: 100%;
+    height: 100vh;
+    justify-content: space-around;
+}
+
+.left-side {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin-right: 50px;
+}
+
+.left-side h1 {
+    max-width: 500px;
+    width: 70%;
+    
+}
+
+.left-side img {
+    width: 30px;
+    height: 30px;
+}
+
+.left-side button {
+    border-radius: 20px;
+    border: 2px solid var(--black);
+    padding: 7px 13px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+    width: 100px;
+}
+
+.left-side button:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.icon-container {
+    margin-top: 20px;
+    display: flex;
+    padding: 0px 5px;
+    flex-direction: row;
+    align-items: start;
+    width: 100px;
+    justify-content: start;
+    gap: 25px;
+}
+
+.icon-container img {
+    cursor: pointer;
+}
+.right-side img{
+    width: 300px;
+    padding: 20px;
+}
+
+.right-side{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+   margin-right: 70px;
+   height: 80vh;
+}
+
+.about-me-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-me-lower-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.about-me-box-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.about-me-box{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    border: 2px solid var(--black);
+    width: 200px;
+    border-radius: 20px;
+    transition: 0.5s ease;
+}
+
+.about-me-box:hover{
+    box-shadow: 0px 0px 15px var(--black);
+    scale: 1.05;
+}
+
+.about-me-box h1{
+    margin:6px 0px;
+}
+
+.about-me-box p{
+    font-weight: 600;
+}
+
+.about-me-text{
+    max-width: 700px;
+    width: 60%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.experience-container{
+    width: 250px;
+    height: 270px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+    gap: 30px;
+    border: 2px solid var(--black);
+    border-radius: 20px;
+    transition: 0.5s ease;
+}
+
+.experience-container:hover{
+    box-shadow: 0px 0px 25px var(--black);
+    scale: 1.03;
+}
+
+#experience h1{
+    max-width: 400px;
+    width: 60%;
+    text-align: center;
+    margin-top: 20px;
+}
+.experience-parts{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.projects-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+}
+
+.projects-part{
+    margin-top: 20px;
+    border: 4px solid var(--black);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 250px;
+    width: 60%;
+    height: 72%;
+    border-radius: 40px;
+}
+
+.projects-part button:hover{
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.projects-part button{
+    width: 100px;
+    border-radius: 20px;
+    border: 2px solid var(--black);
+    color: var(--black);
+    background: transparent;
+    padding: 8px 13px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.5s ease;
+}
+
+.projects-part img{
+    width:90%;
+    padding: 10px;
+    height: 70%;
+    border-radius: 40px;
+    object-fit: cover;
+}
+
+.projects-part p{
+    font-weight: 600;
+}
+label{
+    margin-top: 10px;
+}
+.contact-container{
+    width: 350px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    gap: 10px;
+    border-radius: 20px;
+}
+
+.contact-container input{
+    width: 60%;
+    padding: 10px 15px;
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid var(--black);
+    color: var(--black);
+}
+
+.contact-container textarea{
+    width: 60%;
+    padding: 10px 15px;
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid var(--black);
+    height: 80px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+}
+
+.contact-container button{
+    width: 100px;
+    border-radius: 20px;
+    border: 2px solid var(--black);
+    color: var(--black);
+    background: transparent;
+    padding: 8px 13px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.5s ease;
+    margin-top: 20px;
+
+}
+
+.contact-container button:hover{
+    background-color: var(--black);
+    color: var(--white);
+}
+
+
+.side-bar{
+    position: fixed;
+    top:0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(49, 49, 49, 0.989);
+    width: 300px;
+    height: 100%;
+    z-index: 999;
+}
+
+.side-bar img{
+    width: 45px;
+    height: 45px;
+    margin: 0;
+}
+
+
+.side-bar ul{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 100%;
+    align-items: center;
+    gap: 40px;
+}
+
+.side-bar ul a{
+    position: relative;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 1.2rem;
+    padding: 8px 5px;
+}
+
+svg{
+    cursor: pointer;
+}
+
+.side-bar ul a::after{
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transition: 0.5s ease;
+}
+
+.side-bar ul a:hover::after{
+    width: 100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media(max-width:900px){
+    .nav ul li a{
+        display: none;
+    }
+
+    .home-lower-container{
+        justify-content: center;
+
+    }
+    #menuButton{
+        display: flex;
+    }
+
+    .right-side img{
+        width: 200px;
+    }
+}
+
+@media(max-width:800px){
+    
+    .home-lower-container{
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .left-side{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .right-side img{
+        width: 250px;
+    }
+
+    .left-side{
+        margin: 0px;
+    }
+
+    .right-side {
+        margin: 0px;
+    }
+
+    .about-me-box-container{
+        flex-direction: column;
+    }
+
+    .projects-container{
+        flex-direction: column;
+    }
+
+}
+
+
 
 
     </style>
