@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+
+
+<head>
+
+
+    <meta charset="UTF-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Document</title>
+
+
+    <style>
+
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
+
+
+        body{
+
+
+            display: flex;
+
+
+            flex-direction: column;
+
+
+            align-items: center;
+
+
+            justify-content: center;
+
+
+            width: 100%;
+
+
+            height: 100vh;
+
+
+            background-color: rgb(0, 0, 0);
+
+
+            font-family: "Poppins", serif;
+
+
+            
+
+
+        }
+
+
+
+
+
+        .main-container{
+
+
+            width:max-content;
+
+
+            min-height: 80%;
+
+
+            background-color: rgba(46, 46, 46, 0);
+
+
+            display: flex;
+
+
+            flex-direction: column;
+
+
+            align-items: center;
+
+
+            justify-content: center;
+
+
+        }
+
+
+        input{
+
+
+            width: 250px;
+
+
+            align-items: end;
+
+
+            justify-content: end;
+
+
+            text-align: end;
+
+
+            display: flex;
+
+
+            outline: none;
+
+
+            font-size: 40px;
+
+
+            background-color: rgba(255, 255, 0, 0);
+
+
+            border: none;
+
+
+            color: white;
+
+
+            overflow: auto; /* Ermöglicht horizontales Scrollen */
+
+
+            direction: unset; /* Startet Text rechts */
+
+
+        }
+
+
+
+
+
+        .type-container{
+
+
+            display: grid;
+
+
+            grid-template-columns: 60px 60px 60px 60px;
+
+
+            gap: 5px;
+
+
+        }
+
+
+
+
+
+        button{
+
+
+            height: 60px;
+
+
+            border-radius: 50%;
+
+
+            border: none;
+
+
+            background-color: rgb(59, 59, 59);
+
+
+            color: white;
+
+
+            font-size: 25px;
+
+
+            display: flex;
+
+
+            align-items: center;
+
+
+            justify-content: center;
+
+
+            cursor: pointer;
+
+
+            font-weight: 400;
+
+
+            font-family: "Poppins", serif;
+
+
+        }
+
+
+        .yellow-button{
+
+
+            background-color: rgb(236, 192, 0);
+
+
+            font-size: 30px;
+
+
+        }
+
+
+
+
+
+        .grey-button{
+
+
+            background-color: rgb(97, 97, 97);
+
+
+        }
+
+
+
+
+
+    </style>
+
+
+</head>
+
+
+<body>
+
+
+    <div class="main-container">
+
+
+        <input id="display" readonly>
+
+
+        <div class="type-container">
+
+
+            <button class="grey-button" onclick="Delate()">AC</button>
+
+
+            <button class="grey-button" onclick="vorzeichenButton('+')">+/-</button>
+
+
+            <button class="grey-button" onclick="typeButton('%')">%</button>
+
+
+            <button class="yellow-button" onclick="typeButton('/')">÷</button>
+
+
+            <button onclick="typeButton('7')">7</button>
+
+
+            <button onclick="typeButton('8')">8</button>
+
+
+            <button onclick="typeButton('9')">9</button>
+
+
+            <button class="yellow-button" onclick="typeButton('*')">x</button>
+
+
+            <button onclick="typeButton('4')">4</button>
+
+
+            <button onclick="typeButton('5')">5</button>
+
+
+            <button onclick="typeButton('6')">6</button>
+
+
+            <button class="yellow-button" onclick="typeButton('-')">-</button>
+
+
+            <button onclick="typeButton('1')">1</button>
+
+
+            <button onclick="typeButton('2')">2</button>
+
+
+            <button onclick="typeButton('3')">3</button>
+
+
+            <button class="yellow-button" onclick="typeButton('+')">+</button>
+
+
+            <button onclick="typeButton('0')">0</button>
+
+
+            <button onclick="typeButton('.')">.</button>
+
+
+            <button onclick="calculateButton()">=</button>
+
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+
+        const display = document.getElementById('display');
+
+
+
+
+
+        function typeButton(number){
+
+
+            display.value += number;
+
+
+        }
+
+
+
+
+
+        function Delate(){
+
+
+            display.value = '';
+
+
+        }
+
+
+
+
+
+        function calculateButton(){
+
+
+            display.value = eval(display.value).toFixed(2)
+
+
+            return display.value;
+
+
+        }
+
+
+
+
+
+    </script>
+
+
+</body>
+
+
+</html>
