@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stoppuhr</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            width: 100%;
+        }
+        #main-container {
+            width: max-content;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+        }
+        #time-container {
+            background-color: rgba(0, 255, 255, 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 45%;
+        }
+        label {
+            color: rgb(251, 251, 251);
+            font-size: 3rem;
+            font-weight: 200;
+        }
+        #button-container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        button {
+            margin: 0px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+        }
+        #switchButton {
+            background: rgba(0, 128, 0, 0.397);
+            color: rgb(6, 209, 6);
+        }
+        #switchButton:hover {
+            background: rgba(0, 128, 0, 0.363);
+        }
+        #leftButton {
+            background-color: rgba(44, 44, 44, 0.733);
+            color: rgb(167, 165, 165);
+        }
+        #leftButton:hover {
+            background-color: rgba(44, 44, 44, 0.667);
+        }
+        #line {
+            margin-top: 10px;
+            width: 100%;
+            background-color: grey;
+            height: 1px;
+        }
+        #runden-container {
+            width: 100%;
+            min-height: 200px;
+            overflow-y: auto;
+        }
+        .runde {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid grey;
+            padding: 5px 0;
+        }
+        .runde h1 {
+            color: white;
+            font-size: 14px;
+            font-weight: 100;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <div id="time-container">
+            <label id="display">00:00:00:00</label>
+        </div>
+        <div id="button-container">
+            <button id="leftButton">Runde</button>
+            <button id="switchButton">Start</button>
+        </div>
+        <div id="line"></div>
+        <div id="runden-container"></div>
+    </div>
+    <script>
+        const display = document.getElementById('display');
+        const switchButton = document.getElementById('switchButton');
+        const leftButton = document.getElementById('leftButton');
+        const rundenContainer = document.getElementById('runden-container');
+
+        let timerInterval;
+        let startTime = 0;
+        let elapsedTime = 0;
+        let isRunning = false;
+        let rundeNumber = 0;
+
+        function startTimer() {
+            startTime = Date.now() - elapsedTime;
+            timerInterval = setInterval(updateTimer, 10);
+            isRunning = true;
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            elapsedTime = 0;
+            display.textContent = '00:00:00:00';
+            isRunning = false;
+            rundeNumber = 0;
+            switchButton.textContent = 'Start';
+            switchButton.style.backgroundColor = 'rgba(0, 128, 0, 0.397)';
+            switchButton.style.color = 'rgb(6, 209, 6)';
+            leftButton.textContent = 'Runde';
+            rundenContainer.innerHTML = '';
+        }
+
+        function updateTimer() {
+            const currentTime = Date.now();
+            elapsedTime = currentTime - startTime;
+
+            const hours = Math.floor(elapsedTime / (1000 * 60 * 60)).toString().padStart(2, '0');
+            const minutes = Math.floor((elapsedTime / (1000 * 60)) % 60).toString().padStart(2, '0');
+            const seconds = Math.floor((elapsedTime / 1000) % 60).toString().padStart(2, '0');
+            const milliseconds = Math.floor((elapsedTime % 1000) / 10).toString().padStart(2, '0');
+
+            display.textContent = `${hours}:${minutes}:${seconds}:${milliseconds}`;
+        }
+
+        function addRunde() {
+            rundeNumber++;
+            const rundenZeit = display.textContent;
+
+            const rundeDiv = document.createElement('div');
+            rundeDiv.classList.add('runde');
+            rundeDiv.innerHTML = `
+                <h1>Runde ${rundeNumber}</h1>
+                <h1>${rundenZeit}</h1>
+            `;
+            rundenContainer.prepend(rundeDiv); // Neue Runde oben hinzufügen
+        }
+
+        switchButton.addEventListener('click', () => {
+            if (isRunning) {
+                stopTimer();
+                switchButton.textContent = 'Start';
+                switchButton.style.backgroundColor = 'rgba(0, 128, 0, 0.397)';
+                switchButton.style.color = 'rgb(6, 209, 6)';
+                leftButton.textContent = 'Löschen';
+            } else {
+                startTimer();
+                switchButton.textContent = 'Stop';
+                switchButton.style.backgroundColor = 'rgba(185, 9, 9, 0.379)';
+                switchButton.style.color = 'rgb(185, 9, 9)';
+                leftButton.textContent = 'Runde';
+            }
+        });
+
+        leftButton.addEventListener('click', () => {
+            if (!isRunning && leftButton.textContent === 'Löschen') {
+                resetTimer();
+            } else if (isRunning && leftButton.textContent === 'Runde') {
+                addRunde();
+            }
+        });
+    </script>
+</body>
+</html>
