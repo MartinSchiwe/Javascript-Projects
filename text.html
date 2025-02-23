@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz-Spiel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            text-align: center;
+        }
+        .frage {
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .antworten button {
+            display: block;
+            margin: 5px auto;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .antworten button:hover {
+            background-color: #0056b3;
+        }
+        .ergebnis {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div id="quiz"></div>
+        <div class="ergebnis" id="ergebnis"></div>
+    </div>
+
+    <script>
+        const quiz = [
+            {
+                frage: "Was ist die Hauptstadt von Deutschland?",
+                antworten: ["Berlin", "München", "Hamburg", "Frankfurt"],
+                richtigeAntwort: 0
+            },
+            {
+                frage: "Welche Programmiersprache wird für Webentwicklung verwendet?",
+                antworten: ["Python", "JavaScript", "C++", "Java"],
+                richtigeAntwort: 1
+            },
+            {
+        frage: "Wie viele Planeten hat unser Sonnensystem?",
+        antworten: ["7", "8", "9", "10"],
+        richtigeAntwort: 1
+    },
+    {
+        frage: "Wer schrieb 'Faust'?",
+        antworten: ["Schiller", "Goethe", "Lessing", "Brecht"],
+        richtigeAntwort: 1
+    },
+    {
+        frage: "Was ist die größte Ozean der Welt?",
+        antworten: ["Atlantischer Ozean", "Indischer Ozean", "Pazifischer Ozean", "Arktischer Ozean"],
+        richtigeAntwort: 2
+    },
+    {
+        frage: "Welches chemische Element hat das Symbol 'O'?",
+        antworten: ["Gold", "Silber", "Oxygen", "Osmium"],
+        richtigeAntwort: 2
+    },
+    {
+        frage: "Wann fiel die Berliner Mauer?",
+        antworten: ["1985", "1987", "1989", "1991"],
+        richtigeAntwort: 2
+    }
+        ];
+
+        let aktuelleFrage = 0;
+        let punkte = 0;
+
+        const quizContainer = document.getElementById("quiz");
+        const ergebnisContainer = document.getElementById("ergebnis");
+
+        function zeigeFrage() {
+            if (aktuelleFrage < quiz.length) {
+                const frageObjekt = quiz[aktuelleFrage];
+                quizContainer.innerHTML = `
+                    <div class="frage">${frageObjekt.frage}</div>
+                    <div class="antworten">
+                        ${frageObjekt.antworten.map((antwort, index) => `<button onclick="pruefeAntwort(${index})">${antwort}</button>`).join("")}
+                    </div>
+                `;
+            } else {
+                quizContainer.innerHTML = "";
+                ergebnisContainer.textContent = `Quiz beendet! Du hast ${punkte} von ${quiz.length} Punkten erreicht.`;
+            }
+        }
+
+        function pruefeAntwort(index) {
+            if (index === quiz[aktuelleFrage].richtigeAntwort) {
+                punkte++;
+            }
+            aktuelleFrage++;
+            zeigeFrage();
+        }
+
+        zeigeFrage();
+    </script>
+</body>
+</html>
